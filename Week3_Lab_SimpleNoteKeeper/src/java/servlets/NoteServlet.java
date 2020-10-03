@@ -28,6 +28,7 @@ public class NoteServlet extends HttpServlet {
 
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request,response);
         String path = getServletContext().getRealPath("/WEB-INF/note.txt");
         BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
         Note newNote = new Note();
