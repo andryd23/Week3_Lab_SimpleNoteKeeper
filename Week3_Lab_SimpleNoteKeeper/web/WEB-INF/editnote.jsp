@@ -15,12 +15,12 @@
         <h1>Simple Note Keeper</h1>
         <h2>Edit Note</h2>
         <form method="POST" action="note">
-        <p>Title:</p>
+        <h3>Title:</h3>
         <input type="text" name="editT" value="${title}">
-        <p>Contents:</p>
-        <input type="text" name="editC" value="${content}">
+        <h3>Contents:</h3>
+        <textarea name="contentE" name="editC">${content}"</textarea>
         <br>
-        <input type="submit" value="Save File">
+        <input type="submit" value="Save File" nmae="submit">
         </form>
     </body>
 </html>
