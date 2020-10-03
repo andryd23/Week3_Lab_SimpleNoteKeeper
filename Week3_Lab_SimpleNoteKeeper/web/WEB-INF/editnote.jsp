@@ -14,13 +14,13 @@
     <body>
         <h1>Simple Note Keeper</h1>
         <h2>Edit Note</h2>
-        <form method="POST" action="note">
-        <h3>Title:</h3>
-        <input type="text" name="editT" value="${title}">
-        <h3>Contents:</h3>
-        <textarea name="contentE" name="editC">${content}"</textarea>
-        <br>
-        <input type="submit" value="Save File" nmae="submit">
-        </form>
+        <form>
+        <p>Title:<p>
+            <input type="text" name="title" value="${titleEdit}">
+        <p>content:</p>
+        <input type="text" name="content" value="${contentEdit}">
+        <input type="submit" name="submit" value="Submit File">
+         </form>
+      
     </body>
 </html>
