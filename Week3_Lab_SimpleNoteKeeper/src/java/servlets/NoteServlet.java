@@ -28,34 +28,46 @@ public class NoteServlet extends HttpServlet {
 
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request,response);
       String path = getServletContext().getRealPath("/WEB-INF/note.txt");
       // to read files
       BufferedReader reader = new BufferedReader(new FileReader(new File(path)));
+      String editNote = request.getParameter("edit");
+      Note newNote = new Note();
+      String titleRead = reader.readLine();
+      String contentRead = reader.readLine();
+      newNote.setTitle(titleRead);
+      newNote.setContent(contentRead);
+      reader.close();
+      request.setAttribute("title", newNote.getTitle());
+      request.setAttribute("content", newNote.getContent());
       
-      String title = request.getParameter("title");
-      request.setAttribute("titleEdit", title);
-      String content = request.getParameter("content");
-      request.setAttribute("contentEdit", content);
-      Note noteMain = new Note();
-      noteMain.setTitle(title);
-      noteMain.setContent(content);
-      request.setAttribute("title", noteMain.getTitle());
-      request.setAttribute("content", noteMain.getContent());
+      if(editNote != null) {
+          getServletContext().getRequestDispatcher("/WEB-INF/editnote.jsp").forward(request, response);
+      }
       
-      
-
-
-              
-        
+      else {
+          getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
+      } 
         
     }
     
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request,response);
-      String path = getServletContext().getRealPath("/WEB-INF/note.txt");
-      PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(path, false))); 
+      Note newNote = new Note();
+      String newPath = getServletContext().getRealPath("/WEB-INF/note.txt");
+      PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(newPath, false)));
+      String title = request.getParameter("titleEdit");
+      String content = request.getParameter("contentEdit");
+      newNote.setTitle(title);
+      newNote.setContent(content);
+      pw.println(newNote.getTitle());
+      pw.println(newNote.getContent());
+      pw.close();
+      
+      request.setAttribute("title", newNote.getTitle());
+      request.setAttribute("content", newNote.getContent());
+      
+      getServletContext().getRequestDispatcher("/WEB-INF/viewnote.jsp").forward(request, response);
       
         
     }
